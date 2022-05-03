@@ -8,7 +8,7 @@ import org.junit.Test;
 public class PointTest {
 
     @Test
-    public void whenPointOne000AndPointTwo999Then15588() {
+    public void whenPointOne000AndPointTwo999Then15dot588() {
         Point one = new Point(0, 0, 0);
         Point two = new Point(9, 9, 9);
         double rsl = one.distance3d(two);
