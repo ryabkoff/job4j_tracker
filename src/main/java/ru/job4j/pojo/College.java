@@ -8,8 +8,8 @@ public class College {
         student.setFio("Ivanov Ivan Ivanovich");
         student.setGroup("XZ-2022");
         student.setAdmDate(LocalDate.of(2022, 4, 22));
-        System.out.println("ФИО: " + student.getFio() + "\n"
-                            + "Группа: " + student.getGroup() + "\n"
+        System.out.println("ФИО: " + student.getFio() + System.lineSeparator()
+                            + "Группа: " + student.getGroup() + System.lineSeparator()
                             + "Дата поступления: " + student.getAdmDate());
     }
 }
