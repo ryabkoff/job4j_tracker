@@ -8,6 +8,8 @@ public class Item {
     private String name;
     private LocalDateTime created = LocalDateTime.now();
 
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+
     public Item() {
 
     }
@@ -46,7 +48,7 @@ public class Item {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", created=" + created.format(DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss"))
+                + ", created=" + created.format(FORMATTER)
                 + '}';
     }
 }
