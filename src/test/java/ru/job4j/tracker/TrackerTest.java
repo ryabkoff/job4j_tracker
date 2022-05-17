@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -89,5 +92,18 @@ public class TrackerTest {
         int id = bug.getId();
         tracker.delete(id);
         assertThat(tracker.findById(id), is(nullValue()));
+    }
+
+    @Test
+    public void sortItemByNameAsc() {
+        Item first = new Item("First");
+        Item second = new Item("Second");
+        Item third = new Item("Third");
+        Item fourth = new Item("Fourth");
+        Item fifth = new Item("Fifth");
+        List<Item> items = Arrays.asList(first, second, third, fourth, fifth);
+        Collections.sort(items, new ItemAscByName());
+        List<Item> expected = Arrays.asList(fifth, first, fourth, second, third);
+        assertThat(items, is(expected));
     }
 }
