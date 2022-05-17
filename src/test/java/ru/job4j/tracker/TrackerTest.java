@@ -93,4 +93,31 @@ public class TrackerTest {
         tracker.delete(id);
         assertThat(tracker.findById(id), is(nullValue()));
     }
+
+    @Test
+    public void sortItemByNameAsc() {
+        Item first = new Item("First");
+        Item second = new Item("Second");
+        Item third = new Item("Third");
+        Item fourth = new Item("Fourth");
+        Item fifth = new Item("Fifth");
+        List<Item> items = Arrays.asList(first, second, third, fourth, fifth);
+        Collections.sort(items, new ItemAscByName());
+        List<Item> expected = Arrays.asList(fifth, first, fourth, second, third);
+        assertThat(items, is(expected));
+    }
+
+    @Test
+    public void sortItemByNameDesc() {
+        Item first = new Item("First");
+        Item second = new Item("Second");
+        Item third = new Item("Third");
+        Item fourth = new Item("Fourth");
+        Item fifth = new Item("Fifth");
+        List<Item> items = Arrays.asList(first, second, third, fourth, fifth);
+        Collections.sort(items, new ItemDescByName());
+        List<Item> expected = Arrays.asList(third, second, fourth, first, fifth);
+        assertThat(items, is(expected));
+    }
+
 }
