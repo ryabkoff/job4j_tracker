@@ -20,9 +20,9 @@ public class PhoneDictionary {
         Predicate<Person> compareSurname = s -> key.equals(s.getSurname());
         Predicate<Person> comparePhone = s -> key.equals(s.getPhone());
         Predicate<Person> compareAddress = s -> key.equals(s.getAddress());
-        Predicate<Person> combine = compareName.or(compareSurname).
-                or(comparePhone).
-                or(compareAddress);
+        Predicate<Person> combine = compareName.or(compareSurname)
+                .or(comparePhone)
+                .or(compareAddress);
         ArrayList<Person> result = new ArrayList<>();
         for (Person person : persons) {
             if (combine.test(person)) {
