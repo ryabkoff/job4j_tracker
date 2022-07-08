@@ -24,10 +24,9 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        List<Card> deck = Stream.of(Suit.values())
+        Stream.of(Suit.values())
                 .flatMap(s -> Stream.of(Value.values())
                         .map(v -> new Card(s, v)))
-                .toList();
-        deck.forEach(System.out::println);
+                .forEach(System.out::println);
     }
 }
