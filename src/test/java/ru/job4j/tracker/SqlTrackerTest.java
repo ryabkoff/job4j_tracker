@@ -10,12 +10,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
 public class SqlTrackerTest {
@@ -62,9 +60,8 @@ public class SqlTrackerTest {
     @Test
     public void whenAddItemThenReplace() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
+        Item item1 = tracker.add(new Item("item1"));
         Item item2 = new Item("item2");
-        tracker.add(item1);
         boolean rsl = tracker.replace(item1.getId(), item2);
         item1 = tracker.findById(item1.getId());
         assertTrue(rsl);
@@ -75,8 +72,7 @@ public class SqlTrackerTest {
     @Test
     public void whenAddItemThenDelete() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         boolean rsl = tracker.delete(item.getId());
         assertTrue(rsl);
         assertNull(tracker.findById(item.getId()));
@@ -85,30 +81,26 @@ public class SqlTrackerTest {
     @Test
     public void whenAddTwoItemsThenFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        tracker.add(item1);
-        tracker.add(item2);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
         List<Item> actual = tracker.findAll();
-        List<Item> expected = Arrays.asList(item1, item2);
+        List<Item> expected = List.of(item1, item2);
         assertThat(actual, is(expected));
     }
 
     @Test
     public void whenAddItemThenFindByName() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        tracker.add(item1);
+        Item item1 = tracker.add(new Item("item1"));
         List<Item> actual = tracker.findByName(item1.getName());
-        List<Item> expected = Arrays.asList(item1);
+        List<Item> expected = List.of(item1);
         assertThat(actual, is(expected));
     }
 
     @Test
     public void whenAddItemThenFindById() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        tracker.add(item1);
+        Item item1 = tracker.add(new Item("item1"));
         assertThat(tracker.findById(item1.getId()), is(item1));
     }
 }
