@@ -1,0 +1,29 @@
+Профилирование проводилось с помощью jconsole.
+С помощью утилиты видно:
+- время работы программы;
+- объем используемой памяти;
+- максимальный объем памяти;
+- время работы GC(Copy и MarkSweepCompact)
+
+для профилирования использовался: -XX:+UseSerialGC -Xmx12m -Xms12m
+
+Добавил CreateManyItemsAction - добавляет 10000 заявок
+и DeleteManyItemsAction - удаляет 10000 заявок.
+
+на графике видно состояние памяти, так же видно процесс запуска сборки мусора,
+после удаления большого числа заявок и сборки мосора, сокращается объем используемой памяти.
+
+при добавлении 60 тыс заявок возникает:
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.lang.Object.clone(Native Method)
+	at java.base/java.util.TimeZone.clone(TimeZone.java:755)
+	at java.base/sun.util.calendar.ZoneInfo.clone(ZoneInfo.java:647)
+	at java.base/java.util.TimeZone.getDefault(TimeZone.java:643)
+	at java.base/java.time.ZoneId.systemDefault(ZoneId.java:274)
+	at java.base/java.time.Clock.systemDefaultZone(Clock.java:185)
+	at java.base/java.time.LocalDateTime.now(LocalDateTime.java:182)
+	at ru.job4j.tracker.Item.<init>(Item.java:10)
+	at ru.job4j.tracker.CreateManyItemsAction.execute(CreateManyItemsAction.java:20)
+	at ru.job4j.tracker.StartUI.init(StartUI.java:22)
+	at ru.job4j.tracker.StartUI.main(StartUI.java:48)
+
